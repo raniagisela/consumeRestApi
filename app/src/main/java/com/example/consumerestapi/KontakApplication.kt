@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.consumerestapi.repository.AppContainer
 import com.example.consumerestapi.repository.KontakContainer
 
-class KontakAplikation : Application(){
+class KontakApplication : Application(){
     lateinit var container: AppContainer
     override fun onCreate() {
         super.onCreate()

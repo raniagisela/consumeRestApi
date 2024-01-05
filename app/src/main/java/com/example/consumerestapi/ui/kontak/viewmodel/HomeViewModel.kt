@@ -1,4 +1,4 @@
-package com.example.consumerestapi.ui.home.viewmodel
+package com.example.consumerestapi.ui.kontak.viewmodel
 
 import android.net.http.HttpException
 import android.os.Build
@@ -29,9 +29,22 @@ class HomeViewModel(private val kontakRepository: KontakRepository) : ViewModel(
     }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+    fun deleteKontak(id: Int){
+        viewModelScope.launch {
+            try {
+                kontakRepository.deleteKontak(id)
+            } catch (e: IOException){
+                KontakUIState.Error
+            }catch (e:HttpException){
+                KontakUIState.Error
+            }
+        }
+    }
+
+
+    @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     fun getKontak() {
         viewModelScope.launch {
-            kontakUIState = KontakUIState.Loading
             kontakUIState = try {
                 KontakUIState.Success(kontakRepository.getKontak())
             } catch (e: IOException) {
@@ -41,4 +54,5 @@ class HomeViewModel(private val kontakRepository: KontakRepository) : ViewModel(
             }
         }
     }
+
 }
